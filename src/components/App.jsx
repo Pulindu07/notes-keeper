@@ -10,8 +10,8 @@ function App() {
 
   function deleteNote(id){
     setNoteList((prevItems) => {
-      return prevItems.filter((item, index) => {
-        return index !== id;
+      return prevItems.filter((item) => {
+        return item.id !== id;
       });
     });
   }
