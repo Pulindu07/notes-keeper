@@ -5,33 +5,51 @@ import React, { useState } from "react";
 // return that list to notes
 
 function CreateArea(props) {
-  const [note,setNote] = useState({title:"",content:""});
-  
+  const [note, setNote] = useState({ id: 1, title: "", content: "" });
 
-  function addText(events){
-    const {name,value} = events.target;
-    console.log(name,value)
-    setNote((preValues)=>{
-      return {...preValues,
-      [name]:value}
+
+  function addText(events) {
+    const { name, value } = events.target;
+    console.log(name, value)
+    setNote((preValues) => {
+      return {
+        ...preValues,
+        [name]: value
+      }
     })
   }
-  function addNote(event){
-    console.log(note);
-    props.setNoteList(prevNotes=>{
-      return [...prevNotes,note]
+  function addNote(event) {
+    setNote((preValues) => {
+      console.log("preVal ", preValues)
+      return {
+        ...preValues,
+        ["id"]: preValues.id + 1
+      }
     })
+
+    props.setNoteList(prevNotes => {
+      return [...prevNotes, note]
+    })
+
+
+
     console.log(props.noteList);
-    setNote({title:"",content:""})
+
+    setNote((preValues) => {
+      return {
+        ...preValues,
+        title: "", content: ""
+      }
+    })
     event.preventDefault()
   }
-  
+
   return (
     <div>
       <form>
         <input onChange={addText} name="title" placeholder="Title" value={note.title} />
-        <textarea onChange={addText} name="content" placeholder="Take a note..." rows="3" value={note.content}  />
-        
+        <textarea onChange={addText} name="content" placeholder="Take a note..." rows="3" value={note.content} />
+
         <button onClick={addNote}>Add</button>
       </form>
     </div>
